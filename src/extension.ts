@@ -1,40 +1,26 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as path from "path";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
   console.log(
     'Congratulations, your extension "react-svg-to-jsx-tsx-component" is now active!'
   );
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
   let javascript = vscode.commands.registerCommand(
     "react-svg-to-jsx-tsx-component.convertToJsx",
     async () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
       const editor = vscode.window.activeTextEditor;
       if (editor) {
         const selectedText = editor.document.getText(editor.selection);
         if (selectedText.length <= 0) {
-          vscode.window.showInformationMessage("Nie wybrano tekstu.");
+          vscode.window.showInformationMessage("You don't select any text.");
           return;
         }
         if (!isSvgComponent(selectedText)) {
           vscode.window.showInformationMessage(
-            `Wybrany SVG jest niepoprawny ${selectedText}`
+            `Selected text is not a SVG  ${selectedText}`
           );
           return;
         }
-
-        // Ustal ścieżkę do pliku (np. w folderze projektu)
         const template = `import React from 'react'
 
 		const SVG = () => {
@@ -56,49 +42,44 @@ export function activate(context: vscode.ExtensionContext) {
         );
         const filePath = path.join(folderPath, newFileName);
 
-        // Zapisz komponent SVG do pliku
         vscode.workspace.fs.writeFile(
           vscode.Uri.file(filePath),
           Buffer.from(template)
         );
         const importLine = `import ${newFileName
           .substring(0, newFileName.indexOf("."))
-          .toUpperCase()} from \'./${newFileName}\';\n`; // Line to be added
+          .toUpperCase()} from \'./${newFileName}\';\n`;
         const position = new vscode.Position(0, 0);
         const replacementText = `<${newFileName
           .substring(0, newFileName.indexOf("."))
-          .toUpperCase()} />`; // Text to be replaced
+          .toUpperCase()} />`;
         editor.edit((editBuilder) => {
           editBuilder.insert(position, importLine);
           editBuilder.replace(editor.selection, replacementText);
         });
 
-        vscode.window.showInformationMessage(`Zapisano plik. 💚`);
+        vscode.window.showInformationMessage(`File saved. 💚`);
       } else {
-        vscode.window.showInformationMessage("Wystąpił Błąd. 💔");
+        vscode.window.showInformationMessage("Get some errors. 💔");
       }
     }
   );
   let typescript = vscode.commands.registerCommand(
     "react-svg-to-jsx-tsx-component.convertToTsx",
     async () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
       const editor = vscode.window.activeTextEditor;
       if (editor) {
         const selectedText = editor.document.getText(editor.selection);
         if (selectedText.length <= 0) {
-          vscode.window.showInformationMessage("Nie wybrano tekstu.");
+          vscode.window.showInformationMessage("You don't select any text.");
           return;
         }
         if (!isSvgComponent(selectedText)) {
           vscode.window.showInformationMessage(
-            `Wybrany SVG jest niepoprawny ${selectedText}`
+            `Selected text is not a SVG ${selectedText}`
           );
           return;
         }
-
-        // Ustal ścieżkę do pliku (np. w folderze projektu)
         const template = `import React from 'react'
 
 		const SVG = () => {
@@ -119,16 +100,27 @@ export function activate(context: vscode.ExtensionContext) {
           extension
         );
         const filePath = path.join(folderPath, newFileName);
-
-        // Zapisz komponent SVG do pliku
         vscode.workspace.fs.writeFile(
           vscode.Uri.file(filePath),
           Buffer.from(template)
         );
+        const importLine = `import ${newFileName
+          .substring(0, newFileName.indexOf("."))
+          .toUpperCase()} from \'./${newFileName
+          .substring(0, newFileName.indexOf("."))
+          .toUpperCase()}\';\n`;
+        const position = new vscode.Position(0, 0);
+        const replacementText = `<${newFileName
+          .substring(0, newFileName.indexOf("."))
+          .toUpperCase()} />`;
+        editor.edit((editBuilder) => {
+          editBuilder.insert(position, importLine);
+          editBuilder.replace(editor.selection, replacementText);
+        });
 
-        vscode.window.showInformationMessage(`Zapisano plik. 💚`);
+        vscode.window.showInformationMessage(`File saved. 💚`);
       } else {
-        vscode.window.showInformationMessage("Wystąpił Błąd. 💔");
+        vscode.window.showInformationMessage("Get some errors. 💔");
       }
     }
   );
