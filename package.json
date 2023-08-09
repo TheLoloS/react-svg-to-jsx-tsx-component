@@ -2,7 +2,27 @@
   "name": "react-svg-to-jsx-tsx-component",
   "displayName": "React Svg to JSX/TSX Component",
   "description": "Convert SVG into JSX/TSX files to JSX/TSX component",
-  "version": "0.0.2",
+  "icon": "/smok3.png",
+  "author": "TheLoloS",
+  "publisher": "TheLoloS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheLoloS/react-svg-to-jsx-tsx-component.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheLoloS/react-svg-to-jsx-tsx-component/issues",
+    "email": "contact@thls.pl"
+  },
+  "homepage": "https://thls.pl/",
+  "keywords": [
+    "react",
+    "svg",
+    "jsx",
+    "tsx",
+    "component"
+  ],
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.81.0"
   },
