@@ -61,6 +61,17 @@ export function activate(context: vscode.ExtensionContext) {
           vscode.Uri.file(filePath),
           Buffer.from(template)
         );
+        const importLine = `import ${newFileName
+          .substring(0, newFileName.indexOf("."))
+          .toUpperCase()} from \'./${newFileName}\';\n`; // Line to be added
+        const position = new vscode.Position(0, 0);
+        const replacementText = `<${newFileName
+          .substring(0, newFileName.indexOf("."))
+          .toUpperCase()} />`; // Text to be replaced
+        editor.edit((editBuilder) => {
+          editBuilder.insert(position, importLine);
+          editBuilder.replace(editor.selection, replacementText);
+        });
 
         vscode.window.showInformationMessage(`Zapisano plik. 💚`);
       } else {
