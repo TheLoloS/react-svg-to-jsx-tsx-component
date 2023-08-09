@@ -4,5 +4,4 @@ This project provides a simple utility for converting SVG From JSX/TSX files int
 
 
 
-![2023-08-09-02-32-45](https://github.com/TheLoloS/react-svg-to-jsx-tsx-component/assets/57485545/0a50d565-9fde-4cf3-afbd-da03dd049879)
-
+![ViewofExt](https://github.com/TheLoloS/react-svg-to-jsx-tsx-component/assets/57485545/af41a2d7-9e8a-41c3-ac35-21ab15942fd2)
