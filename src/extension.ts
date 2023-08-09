@@ -106,9 +106,10 @@ export function activate(context: vscode.ExtensionContext) {
         );
         const importLine = `import ${newFileName
           .substring(0, newFileName.indexOf("."))
-          .toUpperCase()} from \'./${newFileName
-          .substring(0, newFileName.indexOf("."))
-          .toUpperCase()}\';\n`;
+          .toUpperCase()} from \'./${newFileName.substring(
+          0,
+          newFileName.indexOf(".")
+        )}\';\n`;
         const position = new vscode.Position(0, 0);
         const replacementText = `<${newFileName
           .substring(0, newFileName.indexOf("."))
